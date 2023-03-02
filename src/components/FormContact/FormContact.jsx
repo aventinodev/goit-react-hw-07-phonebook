@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { fetchAddContact } from 'redux/contacts/contacts-operations';
 import { useDispatch } from 'react-redux';
 
-import { getFilteredContacts } from 'redux/contacts/contacts-selectors';
+// import { getFilteredContacts } from 'redux/contacts/contacts-selectors';
 
 import { Form, Label, Input, Button } from './FormContact.styled';
 
