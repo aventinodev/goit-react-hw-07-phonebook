@@ -9,6 +9,7 @@ const contactsSlice = createSlice(
       isLoading: false,
       error: null,
     },
+    reducers: {},
     extraReducers: {
       [actions.fetchAllContactsLoading]: store => {
         store.isLoading = true;
@@ -38,13 +39,8 @@ const contactsSlice = createSlice(
       },
       [actions.fetchDeleteContactSuccess]: (store, action) => {
         store.isLoading = false;
-        // store.items.filter(contact => contact.id !== action.payload);
-        const index = store.contacts.items.findIndex(
-          contact => (contact.id = action.payload)
-        );
-
-        store.contacts.items.splise(index, 1);
-        console.log(action.payoad);
+        const index = store.items.findIndex(item => (item.id = action.payload));
+        store.items.splice(index, 1);
       },
       [actions.fetchDeleteContactError]: (store, action) => {
         store.isLoading = false;

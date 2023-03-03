@@ -30,7 +30,7 @@ export const fetchAddContact = data => {
   const func = async (dispatch, getState) => {
     try {
       const { contacts } = getState();
-      console.log(contacts);
+
       if (isDublicate(contacts.items, data)) {
         alert('Such name or number is aledy exist');
         return false;
@@ -50,11 +50,12 @@ export const fetchDeleteContact = id => {
     try {
       dispatch(actions.fetchDeleteContactLoading());
 
-      const del = await api.deleteContact(id);
-      console.log(del);
+      await api.deleteContact(id);
+
       dispatch(actions.fetchDeleteContactSuccess(id));
     } catch ({ response }) {
-      dispatch(actions.fetchDeleteContactError(response.data.message));
+      // console.log(response.data.message);
+      dispatch(actions.fetchDeleteContactError(response));
     }
   };
   return func;
