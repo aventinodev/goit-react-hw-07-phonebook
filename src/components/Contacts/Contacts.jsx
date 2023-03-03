@@ -10,7 +10,7 @@ import {
 } from 'redux/contacts/contacts-selectors';
 
 import ContactItem from 'components/ContactItem/ContactItem';
-import { List } from './Contacts.styled';
+import { List, Text } from './Contacts.styled';
 
 export const Contacts = () => {
   const dispatch = useDispatch();
@@ -24,8 +24,9 @@ export const Contacts = () => {
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Something wrong!</p>}
+      {isLoading && <Text>Loading...</Text>}
+      {error && <Text>Something wrong!</Text>}
+      {isLoading || (contacts.length === 0 && <Text>No contacts in list</Text>)}
       <List>
         {contacts.map(({ id, name, phone }) => (
           <ContactItem key={id} id={id} name={name} phone={phone} />
