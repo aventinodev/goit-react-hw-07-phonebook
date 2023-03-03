@@ -49,10 +49,12 @@ export const fetchDeleteContact = id => {
   const func = async dispatch => {
     try {
       dispatch(actions.fetchDeleteContactLoading());
-      await api.deleteContact(id);
-      dispatch(actions.fetchAddContactSuccess(id));
+
+      const del = await api.deleteContact(id);
+      console.log(del);
+      dispatch(actions.fetchDeleteContactSuccess(id));
     } catch ({ response }) {
-      dispatch(actions.fetchAddContactError(response.data.message));
+      dispatch(actions.fetchDeleteContactError(response.data.message));
     }
   };
   return func;

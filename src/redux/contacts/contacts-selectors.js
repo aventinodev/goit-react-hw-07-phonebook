@@ -1,6 +1,9 @@
-export const getContacts = store => store.contacts.items;
+export const selectContacts = store => store.contacts.items;
 
-export const getFilteredContacts = ({ contacts, filter }) => {
+export const selectIsLoading = state => state.contacts.isLoading;
+export const selectError = state => state.contacts.error;
+
+export const selectFilteredContacts = ({ contacts, filter }) => {
   if (!filter) {
     return contacts.items;
   }

@@ -38,11 +38,13 @@ const contactsSlice = createSlice(
       },
       [actions.fetchDeleteContactSuccess]: (store, action) => {
         store.isLoading = false;
-        // store.filter(contact => contact.id !== action.payload);
+        // store.items.filter(contact => contact.id !== action.payload);
         const index = store.contacts.items.findIndex(
           contact => (contact.id = action.payload)
         );
-        store.items.splise(index, 1);
+
+        store.contacts.items.splise(index, 1);
+        console.log(action.payoad);
       },
       [actions.fetchDeleteContactError]: (store, action) => {
         store.isLoading = false;

@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { fetchAddContact } from 'redux/contacts/contacts-operations';
 import { useDispatch } from 'react-redux';
 
-// import { getFilteredContacts } from 'redux/contacts/contacts-selectors';
-
 import { Form, Label, Input, Button } from './FormContact.styled';
 
 const FormContact = () => {
@@ -15,7 +13,6 @@ const FormContact = () => {
   const [state, setState] = useState({ ...initialState });
   const { name, phone } = state;
 
-  // const contacts = useSelector(getFilteredContacts);
   const dispatch = useDispatch();
 
   const onAddContact = e => {
