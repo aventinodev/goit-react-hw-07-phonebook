@@ -4,3 +4,6 @@ export const List = styled.ul`
   list-style: none;
   padding: 0 16px;
 `;
+export const Text = styled.p`
+  margin: 0 auto 16px;
+`;
