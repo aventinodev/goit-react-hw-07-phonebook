@@ -17,7 +17,6 @@ const FormContact = () => {
 
   const onAddContact = e => {
     e.preventDefault();
-
     dispatch(fetchAddContact({ name, phone }));
     setState({ ...initialState });
   };

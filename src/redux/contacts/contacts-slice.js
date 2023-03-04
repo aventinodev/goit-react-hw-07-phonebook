@@ -1,57 +1,95 @@
 import { createSlice } from '@reduxjs/toolkit';
-import * as actions from './contacts-action';
 
-const contactsSlice = createSlice(
-  {
-    name: 'contacts',
-    initialState: {
-      items: [],
-      isLoading: false,
-      error: null,
-    },
-    reducers: {},
-    extraReducers: {
-      [actions.fetchAllContactsLoading]: store => {
+import {
+  fetchContacts,
+  fetchAddContact,
+  fetchDeleteContact,
+} from './contacts-operations';
+const contactsSlice = createSlice({
+  name: 'contacts',
+  initialState: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
+  reducers: {},
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContacts.pending, store => {
         store.isLoading = true;
-      },
-      [actions.fetchAllContactsSuccess]: (store, action) => {
+      })
+      .addCase(fetchContacts.fulfilled, (store, action) => {
         store.isLoading = false;
         store.error = null;
         store.items = action.payload;
-      },
-      [actions.fetchAllContactsError]: (store, action) => {
+      })
+      .addCase(fetchContacts.rejected, (store, action) => {
         store.isLoading = false;
         store.error = action.payload;
-      },
-      [actions.fetchAddContactLoading]: store => {
+      })
+      .addCase(fetchAddContact.pending, store => {
         store.isLoading = true;
-      },
-      [actions.fetchAddContactSuccess]: (store, action) => {
+      })
+      .addCase(fetchAddContact.fulfilled, (store, action) => {
         store.isLoading = false;
         store.items.push(action.payload);
-      },
-      [actions.fetchAddContactError]: (store, action) => {
+      })
+      .addCase(fetchAddContact.rejected, (store, action) => {
         store.isLoading = false;
         store.error = action.payload;
-      },
-      [actions.fetchDeleteContactLoading]: store => {
+      })
+      .addCase(fetchDeleteContact.pending, store => {
         store.isLoading = true;
-      },
-      [actions.fetchDeleteContactSuccess]: (store, action) => {
+      })
+      .addCase(fetchDeleteContact.fulfilled, (store, action) => {
         store.isLoading = false;
         const index = store.items.findIndex(item => (item.id = action.payload));
         store.items.splice(index, 1);
-      },
-      [actions.fetchDeleteContactError]: (store, action) => {
+      })
+      .addCase(fetchDeleteContact.rejected, (store, action) => {
         store.isLoading = false;
         store.error = action.payload;
-      },
-    },
-  }
-
-  //   state.filter(contact => contact.id !== payload),
-);
-
-export const { addContact, deleteContact } = contactsSlice.actions;
+      });
+  },
+});
 
 export default contactsSlice.reducer;
+
+// extraReducers: builder => {
+//     builder
+//       .addCase(actions.fetchAllContactsLoading, store => {
+//         store.isLoading = true;
+//       })
+//       .addCase(actions.fetchAllContactsSuccess, (store, action) => {
+//         store.isLoading = false;
+//         store.error = null;
+//         store.items = action.payload;
+//       })
+//       .addCase(actions.fetchAllContactsError, (store, action) => {
+//         store.isLoading = false;
+//         store.error = action.payload;
+//       })
+//       .addCase(actions.fetchAddContactLoading, store => {
+//         store.isLoading = true;
+//       })
+//       .addCase(actions.fetchAddContactSuccess, (store, action) => {
+//         store.isLoading = false;
+//         store.items.push(action.payload);
+//       })
+//       .addCase(actions.fetchAddContactError, (store, action) => {
+//         store.isLoading = false;
+//         store.error = action.payload;
+//       })
+//       .addCase(actions.fetchDeleteContactLoading, store => {
+//         store.isLoading = true;
+//       })
+//       .addCase(actions.fetchDeleteContactSuccess, (store, action) => {
+//         store.isLoading = false;
+//         const index = store.items.findIndex(item => (item.id = action.payload));
+//         store.items.splice(index, 1);
+//       })
+//       .addCase(actions.fetchDeleteContactError, (store, action) => {
+//         store.isLoading = false;
+//         store.error = action.payload;
+//       });
+//   }

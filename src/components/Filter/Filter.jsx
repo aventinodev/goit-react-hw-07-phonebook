@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { selectFilter } from 'redux/filter/filter-selectors';
 import { setFilter } from 'redux/filter/filter-slice';
-import { fetchAllContacts } from 'redux/contacts/contacts-operations';
+import { fetchContacts } from 'redux/contacts/contacts-operations';
 import { Label, Input } from './Filter.styled';
 
 const Filter = () => {
@@ -10,7 +10,7 @@ const Filter = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllContacts());
+    dispatch(fetchContacts());
   }, [dispatch]);
 
   const onSetFilter = e => {

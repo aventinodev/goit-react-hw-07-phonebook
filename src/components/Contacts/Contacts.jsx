@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllContacts } from 'redux/contacts/contacts-operations';
+import { fetchContacts } from 'redux/contacts/contacts-operations';
 import {
   selectFilteredContacts,
   selectIsLoading,
@@ -19,14 +19,14 @@ export const Contacts = () => {
   const error = useSelector(selectError);
 
   useEffect(() => {
-    dispatch(fetchAllContacts());
+    dispatch(fetchContacts());
   }, [dispatch]);
 
   return (
     <>
-      {isLoading && <Text>Loading...</Text>}
+      {isLoading && !error && <Text>Loading...</Text>}
       {error && <Text>Something wrong!</Text>}
-      {isLoading || (contacts.length === 0 && <Text>No contacts in list</Text>)}
+
       <List>
         {contacts.map(({ id, name, phone }) => (
           <ContactItem key={id} id={id} name={name} phone={phone} />
