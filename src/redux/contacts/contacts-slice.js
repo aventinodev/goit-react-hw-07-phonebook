@@ -43,8 +43,10 @@ const contactsSlice = createSlice({
       })
       .addCase(fetchDeleteContact.fulfilled, (store, action) => {
         store.isLoading = false;
-        const index = store.items.findIndex(item => (item.id = action.payload));
+        const index = store.items.findIndex(item => item.id === action.payload);
         store.items.splice(index, 1);
+
+        // store.items.filter(item => item.id !== action.payload);
       })
       .addCase(fetchDeleteContact.rejected, (store, action) => {
         store.isLoading = false;
