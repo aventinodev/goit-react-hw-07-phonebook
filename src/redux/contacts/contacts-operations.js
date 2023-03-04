@@ -22,23 +22,23 @@ export const fetchAddContact = createAsyncThunk(
     } catch ({ response }) {
       return thunkAPI.rejectWithValue(response.data);
     }
-  },
-  {
-    condition: (data, { getState }) => {
-      const { contacts } = getState();
-      const normalizedName = data.name.toLowerCase();
-      const result = contacts.items.find(contact => {
-        return (
-          contact.name.toLowerCase() === normalizedName ||
-          contact.phone === data.phone
-        );
-      });
-      if (result) {
-        alert('Such name or number is aledy exist');
-        return false;
-      }
-    },
   }
+  // {
+  //   condition: (data, { getState }) => {
+  //     const { contacts } = getState();
+  //     const normalizedName = data.name.toLowerCase();
+  //     const result = contacts.items.find(contact => {
+  //       return (
+  //         contact.name.toLowerCase() === normalizedName ||
+  //         contact.phone === data.phone
+  //       );
+  //     });
+  //     if (result) {
+  //       alert('Such name or number is aledy exist');
+  //       return false;
+  //     }
+  //   },
+  // }
 );
 
 export const fetchDeleteContact = createAsyncThunk(
@@ -46,6 +46,7 @@ export const fetchDeleteContact = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       await api.deleteContact(id);
+      console.log(id);
       return id;
     } catch ({ response }) {
       return thunkAPI.rejectWithValue(response.data);

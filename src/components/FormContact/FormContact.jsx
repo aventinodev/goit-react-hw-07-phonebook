@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { fetchAddContact } from 'redux/contacts/contacts-operations';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFilteredContacts } from 'redux/contacts/contacts-selectors';
 import { Form, Label, Input, Button } from './FormContact.styled';
 
 const FormContact = () => {
@@ -13,10 +13,24 @@ const FormContact = () => {
   const [state, setState] = useState({ ...initialState });
   const { name, phone } = state;
 
+  const contacts = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
 
+  const isDublicate = (name, phone) => {
+    const normalizedName = name.toLowerCase();
+    const result = contacts.find(contact => {
+      return (
+        contact.name.toLowerCase() === normalizedName || contact.phone === phone
+      );
+    });
+    return Boolean(result);
+  };
   const onAddContact = e => {
     e.preventDefault();
+    if (isDublicate(name, phone)) {
+      alert('Contact with such name or number is already  exist');
+      return false;
+    }
     dispatch(fetchAddContact({ name, phone }));
     setState({ ...initialState });
   };
